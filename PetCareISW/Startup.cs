@@ -33,7 +33,8 @@ namespace PetCareISW
             services.AddInjection();
             services.AddDbContext<AppDbContext>(options =>
             {
-                options.UseSqlServer(@"Server=LAPTOP-6QJ5S582\MSSQLSERVER01; Database=PetCareISW; Integrated Security=true;");
+                //options.UseSqlServer(@"Server=LAPTOP-6QJ5S582\MSSQLSERVER01; Database=PetCareISW; Integrated Security=true;");
+                options.UseMySQL("Server=us-cdbr-east-04.cleardb.com/;userid=bed40aedacd27b;Password=cb3dc8b6;Database=heroku_cf2c2f5d2d83558");
                 // JOAQUIN CONNECTION
                 //options.UseSqlServer(@"Server=(localdb)\MSSQLLocalDB;Integrated Security=true;");
 
@@ -103,7 +104,7 @@ namespace PetCareISW
             }*/
 
             app.UseForwardedHeaders();
-            if (Environment.GetEnvironmentVariable("IS_HEROKU") == "true")
+            if (!string.IsNullOrEmpty(Environment.GetEnvironmentVariable("DYNO")))
             {
                 Console.WriteLine("Use https redirection");
                 app.UseHttpsRedirection();
